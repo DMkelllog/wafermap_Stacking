@@ -96,7 +96,7 @@ def training(model, dataloader_train, dataloader_val, mode, args):
             loss.backward()
             optimizer.step()
 
-            total_loss += loss.item()
+            total_loss += loss.item() * y.size(0)
             total_num += y.size(0)
         train_loss = total_loss / total_num
 
@@ -109,7 +109,7 @@ def training(model, dataloader_train, dataloader_val, mode, args):
                 y_pred = model(x)
                 loss = loss_fn(y_pred, y)
 
-                total_loss += loss.item()
+                total_loss += loss.item() * y.size(0)
                 total_num += y.size(0)
             val_loss = total_loss / total_num
         if args.print_freq == 0: pass
